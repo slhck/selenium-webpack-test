@@ -1,10 +1,22 @@
 const chrome = require("selenium-webdriver/chrome");
 
-let chromeDriverBinary = undefined; // may replace later on
+// find chromedriver in current PATH
+function getChromeDriverFromPath() {
+  const spawnSync = require("child_process").spawnSync;
+  const result = spawnSync("which", ["chromedriver"]);
+  if (result.status === 0) {
+    return result.stdout.toString().trim();
+  }
+  return undefined;
+}
+
+let chromeDriverBinary = getChromeDriverFromPath();
 let chromeDriverService;
 if (chromeDriverBinary) {
+  // this works without selenium manager, if there is a chromedriver in the path
   chromeDriverService = new chrome.ServiceBuilder(chromeDriverBinary).build();
 } else {
+  console.warn("No chromedriver found in PATH, using selenium-manager");
   chromeDriverService = new chrome.ServiceBuilder().build();
 }
 

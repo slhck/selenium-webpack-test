@@ -37,9 +37,11 @@ Error: Unable to obtain browser driver.
 Node.js v18.18.2
 ```
 
-This is despite having a `chromedriver` available in the `$PATH`:
+So you have to have a `chromedriver` available in the `$PATH`:
 
 ```console
 $ which -a chromedriver
 /Users/werner/.nvm/versions/node/v18.18.2/bin/chromedriver
 ```
+
+and then search it yourself (see `index.js`), and now Selenium Manager will not be used anymore.
